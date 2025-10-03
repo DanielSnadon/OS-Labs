@@ -35,11 +35,21 @@ int main(int argc, char* argv[]) {
     char filePath1[512];
     char filePath2[512];
 
-    fgets(filePath1, 512, stdin);
-    filePath1[strcspn(filePath1, "\n")] = '\0';
+    ssize_t bytes1 = read(STDIN_FILENO, filePath1, sizeof(filePath1) - 1);
+    if (bytes1 > 0) {
+        filePath1[bytes1] = '\0';
+        if (filePath1[bytes1 - 1] == '\n') {
+            filePath1[bytes1 - 1] = '\0';
+        }
+    }
 
-    fgets(filePath2, 512, stdin);
-    filePath2[strcspn(filePath2, "\n")] = '\0';
+    ssize_t bytes2 = read(STDIN_FILENO, filePath2, sizeof(filePath2) - 1);
+    if (bytes2 > 0) {
+        filePath2[bytes2] = '\0';
+        if (filePath2[bytes2 - 1] == '\n') {
+            filePath2[bytes2 - 1] = '\0';
+        }
+    }
 
     // Создание pipe'ов
 
