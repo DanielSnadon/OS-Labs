@@ -38,6 +38,11 @@ typedef struct
     int endIndex;
 } ThreadArgs;
 
+void printer(Cluster *centroids, int clusterCount) {
+    for (int k = 0; k < clusterCount; k++) {
+        printf("Центроид %d: (%.3f, %.3f) Точек = %d\n", k, centroids[k].x, centroids[k].y, centroids->pointCount);
+    }
+}
 // Получить разницу во времени
 double getTime(struct timespec *start, struct timespec *end)
 {
@@ -220,6 +225,8 @@ int main(int argc, char **argv) {
 
     printf("Для %d потоков время - %.5f \n", threadsCount, timeResult2);
     
+    //printer(sameCentroids, amountOfAllClusters);
+
     free(points);
     free(centroids);
     free(sameCentroids);
