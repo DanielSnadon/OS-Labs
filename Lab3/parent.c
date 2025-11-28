@@ -146,11 +146,12 @@ int main(int argc, char* argv[]) {
 	}
 
     // Чтение input'а и запись в SHM
-
+    
     char buf[SHM_SIZE];
     size_t counter = 0;
     ssize_t bytes;
     
+    // ОСНОВНАЯ ЧАСТЬ
     while (1) {
         bytes = read(STDIN_FILENO, buf, sizeof(buf)); 
 

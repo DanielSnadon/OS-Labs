@@ -80,6 +80,8 @@ int main(int argc, char* argv[]) {
     char outBuf[SHM_SIZE];
     uint32_t outLen;
 
+    // ОСНОВНАЯ ЧАСТЬ
+
     while (true) {
         sem_wait(semFull);
         
