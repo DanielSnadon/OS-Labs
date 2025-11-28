@@ -10,7 +10,7 @@ $ gcc -o libfunc_sin_1.so -shared -fPIC func_sin_1.c -lm |
 gcc -o libfunc_sin_2.so -shared -fPIC func_sin_2.c -lm |
 gcc -o libfunc_e_1.so -shared -fPIC func_e_1.c -lm |
 gcc -o libfunc_e_2.so -shared -fPIC func_e_2.c -lm
-$ gcc -o static stat.c -L. -lfunc_e_1 -lfunc_sin_1 -lm -Wl,-rpath=.
+$ gcc -o static stat.c func_e_1.c func_sin_1.c -lm
 $ gcc -o dynamic dynam.c -ldl
 ```
 
