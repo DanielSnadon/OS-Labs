@@ -79,6 +79,8 @@ int main() {
     char buff[1024];
     int bytes;
 
+    switch_realization();
+    
     while ((bytes = read(STDIN_FILENO, buff, sizeof(buff) - 1)) > 0) {
 
         buff[bytes] = '\0';
@@ -105,10 +107,16 @@ int main() {
 
         if (command == 1 && readAmount == 4) {
             if (!curr_sin_func) {
-                char output[256];
-                int len = snprintf(output, sizeof(output) - 1, "Функция sin не загружена. Попробуйте ввести \'0\'. \n");
-                write(STDOUT_FILENO, output, len);
-                continue;
+                if (loaded_sin) {
+                    dlclose(loaded_sin);
+                }
+                if (loaded_e) {
+                    dlclose(loaded_e);
+                }
+                const char msg[] = "Ошибка: не удалось загрузить функцию. \n";
+                write(STDERR_FILENO, msg, sizeof(msg));
+                curr_e_func = NULL;
+                return 0;
             }
             float res = curr_sin_func(a, b, step);
             char output[256];
@@ -120,10 +128,16 @@ int main() {
 
         if (command == 2 && readAmount == 2) {
             if (!curr_e_func) {
-                char output[256];
-                int len = snprintf(output, sizeof(output) - 1, "Функция e не загружена. Попробуйте ввести \'0\'. \n");
-                write(STDOUT_FILENO, output, len);
-                continue;
+                if (loaded_sin) {
+                    dlclose(loaded_sin);
+                }
+                if (loaded_e) {
+                    dlclose(loaded_e);
+                }
+                const char msg[] = "Ошибка: не удалось загрузить функцию. \n";
+                write(STDERR_FILENO, msg, sizeof(msg));
+                curr_sin_func = NULL;
+                return 0;
             }
             float res = curr_e_func(x);
             char output[256];
